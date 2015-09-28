@@ -1,0 +1,30 @@
+{
+  "name": "gulp-srizer",
+  "version": "1.0.0",
+  "description": "Add w3c SRI hashes so your resources",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/namshi/gulp-srizer.git"
+  },
+  "keywords": [
+    "sri",
+    "gulp",
+    "subresource",
+    "integrity"
+  ],
+  "author": "Luciano Colosio <unlucio@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/namshi/gulp-srizer/issues"
+  },
+  "homepage": "https://github.com/namshi/gulp-srizer#readme",
+  "dependencies": {
+    "glob-stream": "^5.0.0",
+    "node-sri": "^1.1.1",
+    "through2": "^2.0.0"
+  }
+}
