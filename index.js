@@ -11,6 +11,7 @@ function getSris(extensions, path, callback) {
     gStream.create(src)
     .pipe(through2.obj(function(file, enc, cb) {
         var filePath = require('path').relative(file.base, file.path);
+        console.log(filePath);
         sri.hash(file.path, function(error, hash){
             if (error) {
                 throw error;
@@ -49,6 +50,7 @@ function getNewTagString(mstring, hash) {
 }
 
 function sriResources(options) {
+    options = options || {};
     var extensions = '{css,js}';
     var baseRegString = '(.*)(link|script)(.*)"$fileName$"(.*)';
 
@@ -63,6 +65,9 @@ function sriResources(options) {
     }
 
     return through2.obj(function(file, enc, callback) {
+        var filePath = require('path').relative(file.base, file.path);
+        console.log(filePath);
+
         var contentString = file.contents.toString();
         getSris(extensions, options.path || file.base, function(error, sris) {
             if (error) {
