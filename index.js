@@ -2,13 +2,13 @@
 
 var sri = require('node-sri');
 var through2 = require('through2');
-var gStrem = require('glob-stream');
+var gStream = require('glob-stream');
 
 function getSris(extensions, path, callback) {
     var sris = [];
     var src = path + '**/*.' + extensions;
 
-    gStrem.create(src)
+    gStream.create(src)
     .pipe(through2.obj(function(file, enc, cb) {
         var filePath = require('path').relative(file.base, file.path);
         sri.hash(file.path, function(error, hash){
