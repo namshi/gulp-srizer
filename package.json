@@ -1,6 +1,6 @@
 {
   "name": "gulp-srizer",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Add w3c SRI hashes so your resources",
   "main": "index.js",
   "scripts": {
