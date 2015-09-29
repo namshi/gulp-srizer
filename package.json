@@ -4,7 +4,7 @@
   "description": "Add w3c SRI hashes so your resources",
   "main": "index.js",
   "scripts": {
-    "test": "mocha -b -t 50000"
+    "test": "mocha -b"
   },
   "repository": {
     "type": "git",
