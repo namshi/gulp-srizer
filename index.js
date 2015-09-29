@@ -3,6 +3,7 @@
 var sri = require('node-sri');
 var through2 = require('through2');
 var gStream = require('glob-stream');
+var pathLib = require('path');
 
 function getSris(extensions, path, callback) {
   var sris = [];
@@ -10,7 +11,7 @@ function getSris(extensions, path, callback) {
 
   gStream.create(src)
     .pipe(through2.obj(function(file, enc, cb) {
-      var filePath = require('path').relative(file.base, file.path);
+      var filePath = pathLib.relative(file.base, file.path);
       sri.hash(file.path, function(error, hash) {
         if (error) {
           throw error;
@@ -51,7 +52,7 @@ function getNewTagString(mstring, hash) {
 function sriResources(options) {
   options = options || {};
   var extensions = '{css,js}';
-  var baseRegString = '(.*)(link|script)(.*)"$fileName$"(.*)';
+  var baseRegString = '(.*)(link|script)(.*)"(.*)$fileName$"(.*)';
 
   if (typeof options.fileExt === 'string') {
     extensions = options.fileExt;
@@ -65,13 +66,16 @@ function sriResources(options) {
 
   return through2.obj(function(file, enc, callback) {
     var contentString = file.contents.toString();
+    var filePath = pathLib.relative(file.base, file.path);
     getSris(extensions, options.path || file.base, function(error, sris) {
       if (error) {
         callback(error);
+        return;
       }
 
       sris.forEach(function(sri) {
-        var matchString = baseRegString.replace('$fileName$', sri.filePath);
+        var srcFileName = pathLib.relative(filePath, sri.filePath).replace(/\.\.\//g, '');
+        var matchString = baseRegString.replace('$fileName$', srcFileName);
         var regexp = new RegExp(matchString, 'g');
         var matches = contentString.match(regexp) || [];
 
