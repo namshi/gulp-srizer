@@ -1,4 +1,5 @@
 # gulpSrizer
+[![Build Status](https://travis-ci.org/namshi/gulp-srizer.svg?branch=master)](https://travis-ci.org/namshi/gulp-srizer)
 
 Easilly add the needed [w3c Sri informations](http://www.w3.org/TR/SRI/) to your html and jade files.
 
@@ -42,3 +43,6 @@ sriResources({path: '/path/to/your/resources'});
 
 ## Tip and tricks:
 If you're using [gulp-cdnizer](https://www.npmjs.com/package/gulp-cdnizer) or [gulp-rev-all](https://github.com/smysnk/gulp-rev-all) in your project, we suggest your `sri` task to be the last one.
+
+##Tests
+Have [mocha](https://mochajs.org/) installed and: `npm test`

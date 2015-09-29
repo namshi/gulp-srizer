@@ -1,10 +1,10 @@
 {
   "name": "gulp-srizer",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "Add w3c SRI hashes so your resources",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "./node_modules/mocha/bin/mocha -b"
   },
   "repository": {
     "type": "git",
@@ -26,5 +26,10 @@
     "glob-stream": "^5.0.0",
     "node-sri": "^1.1.1",
     "through2": "^2.0.0"
+  },
+  "devDependencies": {
+    "gulp-util": "^3.0.6",
+    "mocha": "^2.3.3",
+    "should": "^7.1.0"
   }
 }
