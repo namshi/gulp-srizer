@@ -5,14 +5,14 @@ var through2 = require('through2');
 var gStream = require('glob-stream');
 var pathLib = require('path');
 
-function getSris(extensions, path, callback) {
+function getSris(extensions, path, options, callback) {
   var sris = [];
-  var src = path + '**/*.' + extensions;
+  var src = pathLib.join(path, '**/*.' + extensions);
 
   gStream.create(src)
     .pipe(through2.obj(function(file, enc, cb) {
       var filePath = pathLib.relative(file.base, file.path);
-      sri.hash(file.path, function(error, hash) {
+      sri.hash({file: file.path, algo: options.algo, prefix: options.prefix}, function(error, hash) {
         if (error) {
           throw error;
         }
@@ -51,6 +51,8 @@ function getNewTagString(mstring, hash) {
 
 function sriResources(options) {
   options = options || {};
+  options.algo = options.algo || 'sha256';
+  options.prefix = (options.prefix === false) ? false : true;
   var extensions = '{css,js}';
   var baseRegString = '(.*)(link|script)(.*)"(.*)$fileName$"(.*)';
 
@@ -67,7 +69,7 @@ function sriResources(options) {
   return through2.obj(function(file, enc, callback) {
     var contentString = file.contents.toString();
     var filePath = pathLib.relative(file.base, file.path);
-    getSris(extensions, options.path || file.base, function(error, sris) {
+    getSris(extensions, options.path || file.base, options, function(error, sris) {
       if (error) {
         callback(error);
         return;

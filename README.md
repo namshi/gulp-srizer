@@ -8,16 +8,16 @@ Easilly add the needed [w3c Sri informations](http://www.w3.org/TR/SRI/) to your
 Install this library via [NPM](https://www.npmjs.org/package/gulp-srizer):
 
 ``` bash
-npm install gulp-srizer
+npm install gulp-srizer --save
 ```
 
 ## Usage
 ```javascript
-var srizer = require('srizer');
+var srizer = require('gulp-srizer');
 
 gulp.task('sri', function() {
     return gulp.src('path/to/your/jade/or/html/files')
-        .pipe(sriResources())
+        .pipe(srizer())
         .pipe(gulp.dest('/where/should/we/write/them'));
 });
 
@@ -29,16 +29,30 @@ gulp.task('sri', function() {
 
 example:
 ```javascript
-sriResources({fileExt: 'css'});
+srizer({fileExt: 'css'});
 // or
-sriResources({fileExt: ['css', 'js']});
+srizer({fileExt: ['css', 'js']});
 ```
 
 * path: where should we look for resource files. By default this path is inferred by the location of your html/jade files
 
 example:
 ```javascript
-sriResources({path: '/path/to/your/resources'});
+srizer({path: '/path/to/your/resources'});
+```
+
+* algo: which hashing algorithm should be used (default: sha256)
+
+example:
+```javascript
+srizer({algo: 'sha512'});
+```
+
+* prefix: where should we prepend of not the algorithm to the has or not (default: true)
+
+example:
+```javascript
+srizer({prefix: false});
 ```
 
 ## Tip and tricks:
